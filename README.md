@@ -6,4 +6,4 @@ This repository now contains a minimal Flutter Hero example.
 ### 文章地址[https://mp.weixin.qq.com/s/3qG5P6_eTLzPKdd6FtVitQ]
 
 ### 展示图
-![展示图](assets/images/hero.gif)
+![展示图](./assets/images/hero.gif)
