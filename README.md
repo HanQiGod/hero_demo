@@ -1,16 +1,8 @@
 # hero_demo
 
-A new Flutter project.
+This repository now contains a minimal Flutter Hero example.
 
-## Getting Started
+## Flutter Hero动画完全指南：从入门到精通的共享元素过渡！
+### 文章地址[https://mp.weixin.qq.com/s/3qG5P6_eTLzPKdd6FtVitQ]
 
-This project is a starting point for a Flutter application.
-
-A few resources to get you started if this is your first Flutter project:
-
-- [Lab: Write your first Flutter app](https://docs.flutter.dev/get-started/codelab)
-- [Cookbook: Useful Flutter samples](https://docs.flutter.dev/cookbook)
-
-For help getting started with Flutter development, view the
-[online documentation](https://docs.flutter.dev/), which offers tutorials,
-samples, guidance on mobile development, and a full API reference.
+### 展示图
