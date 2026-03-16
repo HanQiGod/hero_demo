@@ -290,76 +290,108 @@ class _DestinationPoster extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Container(
+    return SizedBox(
       height: height,
-      decoration: BoxDecoration(
-        borderRadius: BorderRadius.circular(28),
-        gradient: LinearGradient(
-          begin: Alignment.topLeft,
-          end: Alignment.bottomRight,
-          colors: destination.colors,
-        ),
-      ),
-      child: Stack(
-        fit: StackFit.expand,
-        children: [
-          Positioned(
-            right: -24,
-            top: -28,
-            child: Icon(
-              destination.icon,
-              size: height * 0.48,
-              color: Colors.white.withValues(alpha: 0.18),
+      child: LayoutBuilder(
+        builder: (context, constraints) {
+          final isCompact = constraints.maxHeight < 260;
+          final horizontalAlignment = alignment.x > 0.5
+              ? Alignment.bottomRight
+              : alignment.x < -0.5
+              ? Alignment.bottomLeft
+              : Alignment.bottomCenter;
+          final titleStyle = TextStyle(
+            color: Colors.white,
+            fontSize: isCompact ? 24 : 30,
+            fontWeight: FontWeight.w800,
+            height: 1.05,
+          );
+          final noteStyle = TextStyle(
+            color: const Color(0xFFF4F4F5),
+            fontSize: isCompact ? 13 : 14,
+            height: 1.4,
+          );
+
+          return Container(
+            decoration: BoxDecoration(
+              borderRadius: BorderRadius.circular(28),
+              gradient: LinearGradient(
+                begin: Alignment.topLeft,
+                end: Alignment.bottomRight,
+                colors: destination.colors,
+              ),
             ),
-          ),
-          Padding(
-            padding: const EdgeInsets.all(22),
-            child: Align(
-              alignment: alignment,
-              child: Column(
-                mainAxisSize: MainAxisSize.min,
-                crossAxisAlignment: CrossAxisAlignment.start,
-                children: [
-                  Container(
-                    decoration: BoxDecoration(
-                      color: Colors.white.withValues(alpha: 0.18),
-                      borderRadius: BorderRadius.circular(999),
-                    ),
-                    padding: const EdgeInsets.symmetric(
-                      horizontal: 12,
-                      vertical: 6,
-                    ),
-                    child: Text(
-                      destination.badge,
-                      style: const TextStyle(
-                        color: Colors.white,
-                        fontWeight: FontWeight.w600,
+            child: Stack(
+              fit: StackFit.expand,
+              children: [
+                Positioned(
+                  right: -24,
+                  top: -28,
+                  child: Icon(
+                    destination.icon,
+                    size: height * 0.48,
+                    color: Colors.white.withValues(alpha: 0.18),
+                  ),
+                ),
+                Padding(
+                  padding: const EdgeInsets.all(22),
+                  child: Align(
+                    alignment: horizontalAlignment,
+                    child: ConstrainedBox(
+                      constraints: BoxConstraints(
+                        maxWidth: constraints.maxWidth - 44,
+                      ),
+                      child: SizedBox(
+                        height: constraints.maxHeight - 44,
+                        child: Column(
+                          mainAxisAlignment: MainAxisAlignment.end,
+                          crossAxisAlignment: CrossAxisAlignment.start,
+                          children: [
+                            Container(
+                              decoration: BoxDecoration(
+                                color: Colors.white.withValues(alpha: 0.18),
+                                borderRadius: BorderRadius.circular(999),
+                              ),
+                              padding: const EdgeInsets.symmetric(
+                                horizontal: 12,
+                                vertical: 6,
+                              ),
+                              child: Text(
+                                destination.badge,
+                                maxLines: 1,
+                                overflow: TextOverflow.ellipsis,
+                                style: const TextStyle(
+                                  color: Colors.white,
+                                  fontWeight: FontWeight.w600,
+                                ),
+                              ),
+                            ),
+                            SizedBox(height: isCompact ? 12 : 16),
+                            Text(
+                              destination.title,
+                              maxLines: isCompact ? 1 : 2,
+                              overflow: TextOverflow.ellipsis,
+                              style: titleStyle,
+                            ),
+                            SizedBox(height: isCompact ? 4 : 6),
+                            Flexible(
+                              child: Text(
+                                destination.shortNote,
+                                maxLines: isCompact ? 2 : 4,
+                                overflow: TextOverflow.ellipsis,
+                                style: noteStyle,
+                              ),
+                            ),
+                          ],
+                        ),
                       ),
                     ),
                   ),
-                  const SizedBox(height: 16),
-                  Text(
-                    destination.title,
-                    style: const TextStyle(
-                      color: Colors.white,
-                      fontSize: 30,
-                      fontWeight: FontWeight.w800,
-                    ),
-                  ),
-                  const SizedBox(height: 6),
-                  Text(
-                    destination.shortNote,
-                    style: const TextStyle(
-                      color: Color(0xFFF4F4F5),
-                      fontSize: 14,
-                      height: 1.45,
-                    ),
-                  ),
-                ],
-              ),
+                ),
+              ],
             ),
-          ),
-        ],
+          );
+        },
       ),
     );
   }
